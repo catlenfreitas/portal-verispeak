@@ -1,17 +1,16 @@
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3');
 
-const db = new sqlite3.Database('./database.db');
+// cria ou conecta ao banco
+const db = new Database('database.db');
 
-// Criar tabela de alunos
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS alunos (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT,
-      email TEXT UNIQUE,
-      senha TEXT
-    )
-  `);
-});
+// cria tabela se não existir
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS alunos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT,
+    email TEXT UNIQUE,
+    senha TEXT
+  )
+`).run();
 
 module.exports = db;

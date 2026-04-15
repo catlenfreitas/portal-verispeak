@@ -1,61 +1,67 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const db = require('./database');
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // ROTA TESTE
 app.get('/', (req, res) => {
   res.send('Servidor rodando');
 });
 
-// 👤 ROTA DE CADASTRO
+// 👤 CADASTRO
 app.post('/register', (req, res) => {
   const { nome, email, senha } = req.body;
 
-  const query = `
-    INSERT INTO alunos (nome, email, senha)
-    VALUES (?, ?, ?)
-  `;
+  try {
+    const query = `
+      INSERT INTO alunos (nome, email, senha)
+      VALUES (?, ?, ?)
+    `;
 
-  db.run(query, [nome, email, senha], function(err) {
-    if (err) {
-      return res.status(400).json({ error: 'Erro ao cadastrar' });
-    }
+    db.prepare(query).run(nome, email, senha);
 
     res.json({ message: 'Aluno cadastrado com sucesso' });
-  });
+
+  } catch (err) {
+    console.log(err);
+
+    res.status(400).json({ error: 'Erro ao cadastrar (email pode já existir)' });
+  }
 });
 
-// 🔐 ROTA DE LOGIN (AQUI 👇)
+// 🔐 LOGIN
 app.post('/login', (req, res) => {
   const { email, senha } = req.body;
 
-  const query = `
-    SELECT * FROM alunos WHERE email = ? AND senha = ?
-  `;
+  try {
+    const query = `
+      SELECT * FROM alunos WHERE email = ? AND senha = ?
+    `;
 
-  db.get(query, [email, senha], (err, row) => {
-    if (err) {
-      return res.status(500).json({ error: 'Erro no servidor' });
-    }
+    const user = db.prepare(query).get(email, senha);
 
-    if (!row) {
+    if (!user) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
     res.json({
       message: 'Login realizado com sucesso',
-      user: row
+      user
     });
-  });
+
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({ error: 'Erro no servidor' });
+  }
 });
 
+// PORTA (IMPORTANTE PARA RENDER)
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

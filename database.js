@@ -1,7 +1,7 @@
+const path = require('path');
 const Database = require('better-sqlite3');
 
-// cria ou conecta ao banco
-const db = new Database('database.db');
+const db = new Database(path.join(__dirname, 'database.db'));
 
 // cria tabela se não existir
 db.prepare(`

@@ -57,33 +57,43 @@
 
   <script>
     async function login() {
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
+  console.log("clicou no botão");
 
-      try {
-        const response = await fetch('http://localhost:3000/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email, senha })
-        });
+  const email = document.getElementById('email').value;
+  const senha = document.getElementById('senha').value;
 
-        const data = await response.json();
+  document.getElementById('msg').innerText = 'Carregando...';
 
-        if (!response.ok) {
-          document.getElementById('msg').innerText = data.error;
-          return;
-        }
+  try {
+    console.log("enviando request...");
 
-        // sucesso
-        localStorage.setItem('user', JSON.stringify(data.user));
-window.location.href = 'dashboard.html';
+    const response = await fetch('https://verispeak-backend.onrender.com/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, senha })
+    });
 
-      } catch (error) {
-        document.getElementById('msg').innerText = 'Erro ao conectar com servidor';
-      }
+    console.log("resposta recebida");
+
+    const data = await response.json();
+    console.log("dados:", data);
+
+    if (!response.ok) {
+      document.getElementById('msg').innerText = data.error;
+      return;
     }
+
+    localStorage.setItem('user', JSON.stringify(data.user));
+    window.location.href = 'dashboard.html';
+
+  } catch (error) {
+    console.log("erro:", error);
+    document.getElementById('msg').innerText = 'Erro ao conectar com servidor';
+  }
+}
+ 
   </script>
 
 </body>

@@ -2,88 +2,68 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login - Verispeak</title>
-
+  <title>Verispeak</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Ícones -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-  <div class="container">
 
+  <!-- HEADER -->
+  <header>
     <img src="logo.escola.png" class="logo">
+    <a href="login.html" class="btn-login">Entrar</a>
+  </header>
 
-    <p>Pronto para aprender algo novo hoje? 👋</p>
+ <section class="hero">
 
-    <!-- EMAIL -->
-    <div class="input-group">
-      <i class="fa fa-envelope"></i>
-      <input type="email" id="email" placeholder="Seu e-mail">
-    </div>
+  <div class="hero-text">
+    <h1>Aprenda inglês de forma moderna</h1>
+    <p>Plataforma simples, prática e feita para evolução real 🚀</p>
 
-    <!-- SENHA -->
-    <div class="input-group">
-      <i class="fa fa-lock"></i>
-      <input type="password" id="senha" placeholder="Sua senha">
-      <i class="fa fa-eye toggle-password" onclick="toggleSenha()"></i>
-    </div>
-
-    <!-- BOTÃO -->
-    <button id="btnLogin" onclick="login()">Entrar</button>
-
-    <!-- MENSAGEM -->
-    <p class="msg" id="msg"></p>
-
+    <a href="login.html" class="btn">Área do aluno</a>
   </div>
 
-  <script>
-    function toggleSenha() {
-      const input = document.getElementById('senha');
-      input.type = input.type === 'password' ? 'text' : 'password';
-    }
+  <div class="hero-image">
+    <img src="hero.png" alt="Estudo de inglês">
+  </div>
 
-    async function login() {
-      const btn = document.getElementById('btnLogin');
-      const msg = document.getElementById('msg');
+</section>
 
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
+  <!-- CARROSSEL -->
+  <section class="carousel">
+    <h2>Destaques</h2>
 
-      msg.innerText = '';
-      btn.classList.add('loading');
+    <div class="slides">
 
-      try {
-        const response = await fetch('https://verispeak-backend.onrender.com/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email, senha })
-        });
+      <div class="slide">
+        <h3>📚 Aulas práticas</h3>
+        <p>Aprenda inglês aplicado ao dia a dia</p>
+      </div>
 
-        const data = await response.json();
+      <div class="slide">
+        <h3>🎧 Listening</h3>
+        <p>Treine seu ouvido com conteúdos reais</p>
+      </div>
 
-        if (!response.ok) {
-          msg.innerText = data.error;
-          btn.classList.remove('loading');
-          return;
-        }
+      <div class="slide">
+        <h3>🧠 Gramática</h3>
+        <p>Explicações simples e diretas</p>
+      </div>
 
-        localStorage.setItem('user', JSON.stringify(data.user));
-        window.location.href = 'dashboard.html';
+      <div class="slide">
+        <h3>🚀 Evolução</h3>
+        <p>Acompanhe seu progresso nos estudos</p>
+      </div>
 
-      } catch (error) {
-        msg.innerText = 'Erro ao conectar com servidor';
-      }
+    </div>
+  </section>
 
-      btn.classList.remove('loading');
-    }
-  </script>
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Verispeak • Todos os direitos reservados
+  </footer>
 
 </body>
 </html>

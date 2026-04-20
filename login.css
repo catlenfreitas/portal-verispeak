@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0e47a1, #1f90ff, #0abcd4);
+  padding: 15px;
+}
+
+/* CARD */
+.container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  width: 320px;
+  max-width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* LOGO */
+.logo {
+  width: 200px;
+  margin-bottom: -20px;
+}
+/* SUBTEXTO */
+p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 25px;
+  margin-top: 0px;
+}
+
+/* INPUT GROUP */
+.input-group {
+    width: 100%;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+/* ÍCONE ESQUERDA */
+.input-group i:first-child {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* INPUT */
+.input-group input {
+  width: 100%;
+  display: block;
+  padding: 11px 40px 11px 36px;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* FOCUS */
+.input-group input:focus {
+  border-color: #1f90ff;
+  box-shadow: 0 0 5px rgba(31,144,255,0.2);
+}
+
+/* OLHO SENHA */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* BOTÃO */
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #0abcd4, #1f90ff);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* HOVER */
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* MENSAGEM */
+.msg {
+  margin-top: 10px;
+  font-size: 13px;
+  color: red;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 25px;
+  }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Verispeak</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Ícones -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <img src="logo.escola.png" class="logo">
+
+    <p>Pronto para aprender algo novo hoje? 👋</p>
+
+    <!-- EMAIL -->
+    <div class="input-group">
+      <i class="fa fa-envelope"></i>
+      <input type="email" id="email" placeholder="Seu e-mail">
+    </div>
+
+    <!-- SENHA -->
+    <div class="input-group">
+      <i class="fa fa-lock"></i>
+      <input type="password" id="senha" placeholder="Sua senha">
+      <i class="fa fa-eye toggle-password" onclick="toggleSenha()"></i>
+    </div>
+
+    <!-- BOTÃO -->
+    <button id="btnLogin" onclick="login()">Entrar</button>
+
+    <!-- MENSAGEM -->
+    <p class="msg" id="msg"></p>
+
+  </div>
+
+  <script>
+    function toggleSenha() {
+      const input = document.getElementById('senha');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    async function login() {
+      const btn = document.getElementById('btnLogin');
+      const msg = document.getElementById('msg');
+
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      msg.innerText = '';
+      btn.classList.add('loading');
+
+      try {
+        const response = await fetch('https://verispeak-backend.onrender.com/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, senha })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          msg.innerText = data.error;
+          btn.classList.remove('loading');
+          return;
+        }
+
+        localStorage.setItem('user', JSON.stringify(data.user));
+        window.location.href = 'dashboard.html';
+
+      } catch (error) {
+        msg.innerText = 'Erro ao conectar com servidor';
+      }
+
+      btn.classList.remove('loading');
+    }
+  </script>
+
+</body>
+</html>

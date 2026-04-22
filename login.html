@@ -2,57 +2,79 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login - Verispeak</title>
-
+  <title>Login | Verispeak</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Ícones -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="login.css">
 </head>
-
 <body>
-  <div class="container">
 
-    <img src="logo.escola.png" class="logo">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="logo.escola.png" class="logo" alt="Verispeak">
+        <p>Pronto para aprender algo novo hoje?</p>
+      </div>
 
-    <p>Pronto para aprender algo novo hoje? 👋</p>
+      <div class="form-body">
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <div class="input-field">
+            <i class="fa fa-envelope"></i>
+            <input type="email" id="email" placeholder="exemplo@email.com">
+          </div>
+        </div>
 
-    <!-- EMAIL -->
-    <div class="input-group">
-      <i class="fa fa-envelope"></i>
-      <input type="email" id="email" placeholder="Seu e-mail">
+        <div class="input-group">
+          <label for="senha">Senha</label>
+          <div class="input-field">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="senha" placeholder="Sua senha secreta">
+            <i class="fa fa-eye toggle-password" onclick="toggleSenha()"></i>
+          </div>
+        </div>
+
+        <div class="forgot-pass">
+          <a href="#">Esqueceu a senha?</a>
+        </div>
+
+        <button id="btnLogin" class="btn-main" onclick="login()">
+          <span class="btn-text">Entrar na plataforma</span>
+          <div class="loader"></div>
+        </button>
+
+        <p class="msg" id="msg"></p>
+      </div>
+
+      <div class="login-footer">
+        Não tem uma conta? <a href="https://wa.me/5511992560534">Fale com o suporte</a>
+      </div>
     </div>
-
-    <!-- SENHA -->
-    <div class="input-group">
-      <i class="fa fa-lock"></i>
-      <input type="password" id="senha" placeholder="Sua senha">
-      <i class="fa fa-eye toggle-password" onclick="toggleSenha()"></i>
-    </div>
-
-    <!-- BOTÃO -->
-    <button id="btnLogin" onclick="login()">Entrar</button>
-
-    <!-- MENSAGEM -->
-    <p class="msg" id="msg"></p>
-
   </div>
 
   <script>
     function toggleSenha() {
       const input = document.getElementById('senha');
-      input.type = input.type === 'password' ? 'text' : 'password';
+      const icon = document.querySelector('.toggle-password');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
     }
 
     async function login() {
       const btn = document.getElementById('btnLogin');
       const msg = document.getElementById('msg');
-
       const email = document.getElementById('email').value;
       const senha = document.getElementById('senha').value;
+
+      if(!email || !senha) {
+        msg.innerText = "Preencha todos os campos.";
+        return;
+      }
 
       msg.innerText = '';
       btn.classList.add('loading');
@@ -60,9 +82,7 @@
       try {
         const response = await fetch('https://verispeak-backend.onrender.com/login', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, senha })
         });
 
@@ -79,11 +99,9 @@
 
       } catch (error) {
         msg.innerText = 'Erro ao conectar com servidor';
+        btn.classList.remove('loading');
       }
-
-      btn.classList.remove('loading');
     }
   </script>
-
 </body>
 </html>

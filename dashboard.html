@@ -2,140 +2,98 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Área do Aluno - Verispeak</title>
+  <title>Dashboard | Verispeak</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0e47a1, #1f90ff, #0abcd4);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 30px;
-      width: 350px;
-      max-width: 100%;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-      text-align: center;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-
-    .logo {
-      width: 80px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      color: #0e47a1;
-      margin-bottom: 5px;
-    }
-
-    p {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
-
-    .card {
-      background: #f8fbff;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .card h3 {
-      margin: 0;
-      color: #0e47a1;
-      font-size: 16px;
-    }
-
-    .card p {
-      margin: 5px 0 0;
-      font-size: 13px;
-      color: #777;
-    }
-
-    .btn {
-      display: block;
-      margin-top: 20px;
-      padding: 14px;
-      border-radius: 30px;
-      background: linear-gradient(90deg, #0abcd4, #1f90ff);
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .logout {
-      margin-top: 15px;
-      font-size: 13px;
-      color: #999;
-      cursor: pointer;
-    }
-
-    .logout:hover {
-      color: #333;
-    }
-
-  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
 </head>
-
 <body>
 
-  <div class="container">
-
-    <img src="logo.escola.png" class="logo">
-
-    <h2 id="nome"></h2>
-    <p>Bem-vindo à sua área de estudos 🚀</p>
-
-    <div class="card">
-      <h3>📚 Suas aulas</h3>
-      <p>Acesse seus conteúdos e continue aprendendo</p>
+  <nav class="navbar">
+    <div class="nav-content">
+      <img src="logo.escola.png" class="logo" alt="Verispeak">
+      <div class="user-profile">
+        <span id="nome-user">Carregando...</span>
+        <div class="avatar"><i class="fas fa-user"></i></div>
+        <button class="logout-btn" onclick="logout()" title="Sair">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
     </div>
+  </nav>
 
-    <a class="btn" href="https://western-planet-8fb.notion.site/Verispeak-3436476a63ab80438a7edf744805f3e1?source=copy_link" target="_blank">
-      Acessar plataforma
-    </a>
+  <main class="main-container">
+    <header class="welcome-header">
+      <h1>Bem-vindo de volta! 🚀</h1>
+      <p>Onde paramos? Continue sua jornada para a fluência.</p>
+    </header>
 
-    <div class="logout" onclick="logout()">Sair</div>
+    <div class="dashboard-grid">
+      <div class="dash-card primary">
+        <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="card-info">
+          <h3>Plataforma de Estudos</h3>
+          <p>Acesse seu material completo, exercícios e cronograma personalizado no Notion.</p>
+          <a href="https://western-planet-8fb.notion.site/Verispeak-3436476a63ab80438a7edf744805f3e1?pvs=74" target="_blank" class="btn-dash">
+            Abrir Conteúdos <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
 
-  </div>
+      <div class="dash-card">
+        <div class="card-icon green"><i class="fas fa-fire"></i></div>
+        <div class="card-info">
+          <h3>Sua Ofensiva</h3>
+          <p>Você está estudando há <strong>5 dias</strong> seguidos! Mantenha o foco.</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 70%;"></div>
+          </div>
+        </div>
+      </div>
 
-  <script>
-    const user = JSON.parse(localStorage.getItem('user'));
+      <div class="dash-card">
+        <div class="card-icon blue"><i class="fab fa-whatsapp"></i></div>
+        <div class="card-info">
+          <h3>Dúvida com a aula?</h3>
+          <p>Fale diretamente com seu professor pelo canal de suporte oficial.</p>
+          <a href="https://wa.me/5511992560534" class="btn-link">Chamar no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </main>
 
-    if (!user) {
-      window.location.href = 'login.html';
-    } else {
-      document.getElementById('nome').innerText = "Olá, " + user.nome;
+ <script>
+  // 1. Puxa os dados que o login salvou no navegador
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  // 2. Verifica se o usuário está logado
+  if (!user) {
+    window.location.href = 'login.html';
+  } else {
+    // 3. Atualiza o nome na Navbar
+    const primeiroNome = user.nome.split(' ')[0];
+    document.getElementById('nome-user').innerText = primeiroNome;
+
+    // 4. PUXA A OFENSIVA REAL DO BANCO
+    // Selecionamos o elemento <strong> que exibe os dias
+    const streakDisplay = document.querySelector('.card-icon.green + .card-info p strong');
+    if (streakDisplay) {
+      streakDisplay.innerText = `${user.ofensiva || 0} dias`;
     }
 
-    function logout() {
-      localStorage.removeItem('user');
-      window.location.href = 'login.html';
+    // 5. PUXA O PROGRESSO REAL DO BANCO
+    const progressFill = document.querySelector('.progress-fill');
+    if (progressFill) {
+      const valorProgresso = user.progresso || 0;
+      progressFill.style.width = valorProgresso + "%";
     }
-  </script>
+  }
 
+  // Função de Sair
+  function logout() {
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+  }
+</script>
 </body>
 </html>

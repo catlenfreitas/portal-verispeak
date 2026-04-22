@@ -1,0 +1,193 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f0f4f8;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+/* NAVBAR MODERNA */
+.navbar {
+  background: white;
+  padding: 15px 5%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  transition: 0.3s;
+}
+
+.logo span { color: #1f90ff; }
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-profile span {
+  font-weight: 600;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  background: #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+  transition: 0.3s;
+}
+
+.logout-btn:hover { color: #ef4444; }
+
+/* CONTAINER PRINCIPAL */
+.main-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.welcome-header {
+  margin-bottom: 40px;
+}
+
+.welcome-header h1 {
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.welcome-header p {
+  color: #64748b;
+  margin-top: 5px;
+}
+
+/* GRID DE CARDS */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.dash-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-5px);
+}
+
+.dash-card.primary {
+  grid-column: span 1; /* Pode aumentar para span 2 se quiser destaque */
+  border-left: 5px solid #1f90ff;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  background: #eff6ff;
+  color: #1f90ff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.card-icon.green { background: #f0fdf4; color: #22c55e; }
+.card-icon.blue { background: #ecfeff; color: #06b6d4; }
+
+.card-info h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.card-info p {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* BOTÕES DENTRO DOS CARDS */
+.btn-dash {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1f90ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-dash:hover { background: #0e47a1; }
+
+.btn-link {
+  color: #1f90ff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* BARRA DE PROGRESSO SUTIL */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 10px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
+  .welcome-header h1 { font-size: 24px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
